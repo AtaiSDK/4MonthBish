@@ -9,17 +9,17 @@ import com.example.a4monthbish.databinding.ItemBoardBinding
 import com.example.a4monthbish.model.OnBoarding
 
 class BoardAdapter : Adapter<BoardAdapter.BoardViewHolder>() {
-    val list = listOf(
-        OnBoarding("Title1", "Desk1", R.raw.anim),
-        OnBoarding("Title2", "Desk2", R.raw.anim1),
-        OnBoarding("Title3", "Desk3", R.raw.anim2)
-    )
+    private val animList = listOf(R.raw.anim, R.raw.anim1, R.raw.anim2)
+    private val titleList = listOf("Title 1", "Title 2", "Title 3")
+    private val desList = listOf("Des 1", "Des 2", "Des 3")
 
-    class BoardViewHolder(private val binding: ItemBoardBinding) : ViewHolder(binding.root) {
-        fun bind(onBoarding: OnBoarding) {
 
-            binding.desk.text = onBoarding.desc
-            binding.title.text = onBoarding.title
+    inner class BoardViewHolder(private val binding: ItemBoardBinding) : ViewHolder(binding.root) {
+        fun bind(position: Int) {
+
+            binding.anim.setAnimation(animList[position])
+            binding.title.text = titleList[position]
+            binding.desk.text = desList[position]
 
         }
 
@@ -32,9 +32,9 @@ class BoardAdapter : Adapter<BoardAdapter.BoardViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(position)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = animList.size
 }
 

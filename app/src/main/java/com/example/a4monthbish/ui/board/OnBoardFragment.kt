@@ -8,16 +8,22 @@ import android.view.ViewGroup
 import com.example.a4monthbish.R
 import com.example.a4monthbish.databinding.FragmentOnBoardBinding
 import com.example.a4monthbish.databinding.FragmentProfileBinding
+import com.example.a4monthbish.databinding.ItemBoardBinding
 
 class OnBoardFragment : Fragment() {
-    private var _binding: FragmentOnBoardBinding? = null
-    private val binding get() = _binding!!
+    private val adapter = BoardAdapter()
+    private lateinit var binding : FragmentOnBoardBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentOnBoardBinding.inflate(inflater, container, false)
+        binding = FragmentOnBoardBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.pager.adapter = adapter
     }
 }

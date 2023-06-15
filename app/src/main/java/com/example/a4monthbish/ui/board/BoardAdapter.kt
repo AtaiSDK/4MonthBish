@@ -6,27 +6,35 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.a4monthbish.R
 import com.example.a4monthbish.databinding.ItemBoardBinding
+import com.example.a4monthbish.model.OnBoarding
 
 class BoardAdapter : Adapter<BoardAdapter.BoardViewHolder>() {
-    private val imgList =
-        listOf(androidx.core.R.drawable.notification_icon_background, R.drawable.ic_profile)
-    private val titleList = listOf("Title1", "Title2")
+    val list = listOf(
+        OnBoarding("Title1", "Desk1", ""),
+        OnBoarding("Title2", "Desk2", ""),
+        OnBoarding("Title3", "Desk3", "")
+    )
 
     class BoardViewHolder(private val binding: ItemBoardBinding) : ViewHolder(binding.root) {
+        fun bind(onBoarding: OnBoarding) {
+
+            binding.desk.text = onBoarding.desc
+            binding.title.text = onBoarding.title
+
+        }
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
-        TODO("Not yet implemented")
+        return BoardViewHolder(ItemBoardBinding.inflate(LayoutInflater.from(parent.context),
+        parent, false))
     }
 
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(list[position])
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = list.size
 }
 

@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.a4monthbish.R
 import com.example.a4monthbish.databinding.FragmentHomeBinding
+import com.example.a4monthbish.model.Task
+import com.example.a4monthbish.ui.home.Adapter.TaskAdapter
+import com.example.a4monthbish.ui.task.TaskFragment
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private val adapter = TaskAdapter()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,9 +34,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setFragmentResultListener(TaskFragment.TASK_REQUEST, { _, bundle ->
+
+            val data = bundle.getSerializable(TaskFragment.TASK_KEY) as Task
+            adapter.setTask(data)
+        })
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
+        binding.recyclerView.adapter = adapter
     }
     override fun onDestroyView() {
         super.onDestroyView()

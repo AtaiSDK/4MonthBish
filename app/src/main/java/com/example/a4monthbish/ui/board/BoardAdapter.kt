@@ -10,9 +10,9 @@ import com.example.a4monthbish.model.OnBoarding
 
 class BoardAdapter : Adapter<BoardAdapter.BoardViewHolder>() {
     val list = listOf(
-        OnBoarding("Title1", "Desk1", ""),
-        OnBoarding("Title2", "Desk2", ""),
-        OnBoarding("Title3", "Desk3", "")
+        OnBoarding("Title1", "Desk1", R.raw.anim),
+        OnBoarding("Title2", "Desk2", R.raw.anim1),
+        OnBoarding("Title3", "Desk3", R.raw.anim2)
     )
 
     class BoardViewHolder(private val binding: ItemBoardBinding) : ViewHolder(binding.root) {

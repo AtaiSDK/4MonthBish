@@ -11,6 +11,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/indicator"
+        android:background="#1E88E5"
         />
 
     <androidx.viewpager2.widget.ViewPager2

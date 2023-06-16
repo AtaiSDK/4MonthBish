@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.example.a4monthbish.data.local.Pref
 import com.example.a4monthbish.databinding.ActivityMainBinding
 import me.relex.circleindicator.CircleIndicator
 import me.relex.circleindicator.CircleIndicator3
@@ -18,19 +19,22 @@ import me.relex.circleindicator.CircleIndicator3
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
+    private val pref: Pref by lazy {
+        Pref(this)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        navController.navigate(R.id.onBoardFragment)
+
+        if(!pref.isUserSeen())
+            navController.navigate(R.id.onBoardFragment)
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
@@ -41,25 +45,16 @@ class MainActivity : AppCompatActivity() {
                 R.id.onBoardFragment
             )
         )
-
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener{
-            override fun onDestinationChanged(
-                controller: NavController,
-                destination: NavDestination,
-                arguments: Bundle?
-            ) {
-                if(destination.id == R.id.onBoardFragment){
-                    navView.isVisible = false
-                    supportActionBar?.hide()
-                }else{
-                    navView.isVisible = true
-                    supportActionBar?.show()
-                }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.onBoardFragment) {
+                navView.isVisible = false
+                supportActionBar?.hide()
+            } else {
+                navView.isVisible = true
+                supportActionBar?.show()
             }
-
-        })
+        }
     }
 }

@@ -41,6 +41,7 @@ class HomeFragment : Fragment(),
         }
         binding.recyclerView.adapter = adapter
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -50,8 +51,7 @@ class HomeFragment : Fragment(),
         val alert = AlertDialog.Builder(requireContext())
         alert.setTitle("Вы уверены в этом?")
             .setMessage("Are u ok")
-            .setPositiveButton("Подтвердить"){
-                    _, _ ->
+            .setPositiveButton("Подтвердить") { _, _ ->
                 App.db.taskDao().delete(task)
                 val list = App.db.taskDao().getAll()
                 adapter.setTasks(list)
@@ -59,4 +59,4 @@ class HomeFragment : Fragment(),
             .setNegativeButton("Отмена", null)
             .show()
     }
-    }
+}

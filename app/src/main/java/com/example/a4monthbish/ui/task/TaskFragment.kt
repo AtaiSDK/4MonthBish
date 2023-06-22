@@ -28,7 +28,7 @@ class TaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     binding.btnSave.setOnClickListener {
         onSave()
-    }
+            }
     }
 
     private fun onSave() {

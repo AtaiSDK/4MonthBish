@@ -31,7 +31,6 @@ class TaskAdapter(private val click : LongClick):Adapter<TaskAdapter.TaskViewHol
 
             holder.itemView.setOnLongClickListener {
                 click.longCLick(list[position])
-
                 true
             }
     }
@@ -45,11 +44,9 @@ class TaskAdapter(private val click : LongClick):Adapter<TaskAdapter.TaskViewHol
             tvTitle.text = task.title
             tvDesk.text = task.desk
         }
-
     }
     interface LongClick{
         fun longCLick(task: Task)
-
     }
 
 }

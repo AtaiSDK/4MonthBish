@@ -19,10 +19,7 @@ class HomeFragment : Fragment(),
     private val adapter: TaskAdapter by lazy {
         TaskAdapter(this)
     }
-
     private var _binding: FragmentHomeBinding? = null
-    private val alert = AlertDialog.Builder(requireContext())
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -36,6 +33,7 @@ class HomeFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val list = App.db.taskDao().getAll()
         adapter.setTasks(list)
         binding.fab.setOnClickListener {
@@ -49,6 +47,7 @@ class HomeFragment : Fragment(),
     }
 
     override fun longCLick(task: Task) {
+        val alert = AlertDialog.Builder(requireContext())
         alert.setTitle("Вы уверены в этом?")
             .setMessage("Are u ok")
             .setPositiveButton("Подтвердить"){

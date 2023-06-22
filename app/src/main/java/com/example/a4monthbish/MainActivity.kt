@@ -1,6 +1,8 @@
 package com.example.a4monthbish
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.ImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -19,6 +21,7 @@ import me.relex.circleindicator.CircleIndicator3
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     private val pref: Pref by lazy {
         Pref(this)
     }

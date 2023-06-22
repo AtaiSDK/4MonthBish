@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.a4monthbish.R
 import com.example.a4monthbish.databinding.FragmentTaskBinding
 import com.example.a4monthbish.model.Task
+import com.example.a4monthbish.ui.App
 
 class TaskFragment : Fragment() {
 
@@ -35,7 +36,7 @@ class TaskFragment : Fragment() {
              title = binding.etTitle.text.toString(),
              desk = binding.etDesc.text.toString()
          )
-        setFragmentResult(TASK_REQUEST, bundleOf(TASK_KEY to data))
+        App.db.taskDao().insert(data)
         findNavController().navigateUp()
     }
 

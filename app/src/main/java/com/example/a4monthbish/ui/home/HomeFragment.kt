@@ -1,26 +1,28 @@
 package com.example.a4monthbish.ui.home
 
-import android.os.Binder
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.a4monthbish.R
 import com.example.a4monthbish.databinding.FragmentHomeBinding
 import com.example.a4monthbish.model.Task
+import com.example.a4monthbish.ui.App
 import com.example.a4monthbish.ui.home.Adapter.TaskAdapter
-import com.example.a4monthbish.ui.task.TaskFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),
+    TaskAdapter.LongClick {
+
+    private val adapter: TaskAdapter by lazy {
+        TaskAdapter(this)
+    }
 
     private var _binding: FragmentHomeBinding? = null
+    private val alert = AlertDialog.Builder(requireContext())
 
-    private val adapter = TaskAdapter()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -34,11 +36,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setFragmentResultListener(TaskFragment.TASK_REQUEST, { _, bundle ->
-
-            val data = bundle.getSerializable(TaskFragment.TASK_KEY) as Task
-            adapter.setTask(data)
-        })
+        val list = App.db.taskDao().getAll()
+        adapter.setTasks(list)
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
@@ -48,4 +47,17 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
+
+    override fun longCLick(task: Task) {
+        alert.setTitle("Вы уверены в этом?")
+            .setMessage("Are u ok")
+            .setPositiveButton("Подтвердить"){
+                    _, _ ->
+                App.db.taskDao().delete(task)
+                val list = App.db.taskDao().getAll()
+                adapter.setTasks(list)
+            }
+            .setNegativeButton("Отмена", null)
+            .show()
+    }
+    }

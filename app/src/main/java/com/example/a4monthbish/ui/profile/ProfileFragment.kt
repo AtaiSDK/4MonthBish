@@ -18,7 +18,7 @@ import com.example.a4monthbish.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var imageView: ImageView
+
     private val pref : Pref by lazy {
         Pref(requireContext())
     }
@@ -43,7 +43,7 @@ class ProfileFragment : Fragment() {
             pref.saveName(binding.etName.text.toString())
             pref.saveSurname(binding.etSurname.text.toString())
         }
-        binding.image.setOnClickListener {
+        binding.imageView.setOnClickListener {
             openGallery()
         }
     }
@@ -52,7 +52,7 @@ class ProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
             val imageUri: Uri? = data?.data
-            binding.image.setImageURI(imageUri)
+            binding.imageView.setImageURI(imageUri)
         }
     }
     private fun openGallery() {

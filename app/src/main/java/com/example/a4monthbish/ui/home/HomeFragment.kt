@@ -50,7 +50,6 @@ class HomeFragment : Fragment(),
     override fun longCLick(task: Task) {
         val alert = AlertDialog.Builder(requireContext())
         alert.setTitle("Вы уверены в этом?")
-            .setMessage("Are u ok")
             .setPositiveButton("Подтвердить") { _, _ ->
                 App.db.taskDao().delete(task)
                 val list = App.db.taskDao().getAll()

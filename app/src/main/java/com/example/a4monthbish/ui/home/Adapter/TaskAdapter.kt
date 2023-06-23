@@ -37,7 +37,7 @@ class TaskAdapter(private val click : LongClick):Adapter<TaskAdapter.TaskViewHol
 
     override fun getItemCount(): Int  = list.size
     inner class TaskViewHolder(private val binding: ItemTaskBinding):ViewHolder(binding.root) {
-        val currentTask = list[position]
+
         fun bind(task: Task) = with(binding) {
             tvTitle.text = task.title
             tvDesk.text = task.desk

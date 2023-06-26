@@ -26,16 +26,35 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    binding.btnSave.setOnClickListener {
-        onSave()
-            }
+
+        if(arguments != null){
+            val note = (arguments?.getSerializable("change"))
+                onSave(note as Task)
+
+        }
+
     }
 
-    private fun onSave() {
-         val data = Task(
-             title = binding.etTitle.text.toString(),
-             desk = binding.etDesc.text.toString()
-         )
+    private fun onSave(task: Task) {
+        binding.etDesc.setText(task.desk)
+        binding.etTitle.setText(task.title)
+        val id =task.id
+        binding.btnSave.setOnClickListener {
+            val title = binding.etTitle.text.toString()
+            val desk = binding.etDesc.text.toString()
+            App.db.taskDao().update(
+                Task(
+                    id = id,
+                    title = title,
+                    desk = desk,
+                )
+            )
+        }
+
+        val data = Task(
+            title = binding.etTitle.text.toString(),
+            desk = binding.etDesc.text.toString()
+        )
         App.db.taskDao().insert(data)
         findNavController().navigateUp()
     }

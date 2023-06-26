@@ -8,7 +8,7 @@ import com.example.a4monthbish.databinding.ItemTaskBinding
 import com.example.a4monthbish.model.Task
 import kotlin.reflect.KFunction1
 
-class TaskAdapter(private val click : LongClick):Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(private val click : LongClick, ):Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val list = arrayListOf<Task>()
 
@@ -33,6 +33,9 @@ class TaskAdapter(private val click : LongClick):Adapter<TaskAdapter.TaskViewHol
                 click.longCLick(list[position])
                 true
             }
+        holder.itemView.setOnClickListener {
+                click.changeItem((list[position]))
+        }
     }
 
     override fun getItemCount(): Int  = list.size
@@ -45,6 +48,7 @@ class TaskAdapter(private val click : LongClick):Adapter<TaskAdapter.TaskViewHol
     }
     interface LongClick{
         fun longCLick(task: Task)
+        fun changeItem(task: Task)
     }
 
 }

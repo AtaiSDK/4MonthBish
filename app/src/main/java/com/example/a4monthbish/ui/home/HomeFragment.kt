@@ -15,7 +15,6 @@ import com.example.a4monthbish.ui.home.Adapter.TaskAdapter
 
 class HomeFragment : Fragment(),
     TaskAdapter.LongClick {
-
     private val adapter: TaskAdapter by lazy {
         TaskAdapter(this)
     }
@@ -58,7 +57,10 @@ class HomeFragment : Fragment(),
             .setNegativeButton("Отмена", null)
             .show()
     }
-    override fun clickChange(task: Task){
-        App.db.
+
+    override fun changeItem(task: Task) {
+        val bundle = Bundle()
+        bundle.putSerializable("change", task)
+        findNavController().navigate(R.id.taskFragment, bundle)
     }
 }

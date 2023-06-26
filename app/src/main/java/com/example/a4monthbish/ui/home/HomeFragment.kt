@@ -58,4 +58,7 @@ class HomeFragment : Fragment(),
             .setNegativeButton("Отмена", null)
             .show()
     }
+    override fun clickChange(task: Task){
+        App.db.
+    }
 }

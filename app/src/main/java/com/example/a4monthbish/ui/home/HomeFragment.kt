@@ -35,6 +35,8 @@ class HomeFragment : Fragment(),
 
         val list = App.db.taskDao().getAll()
         adapter.setTasks(list)
+        val bundle = Bundle()
+        bundle.putString(ID, ADD_TASK)
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
@@ -60,7 +62,15 @@ class HomeFragment : Fragment(),
 
     override fun changeItem(task: Task) {
         val bundle = Bundle()
+        bundle.putString(ID, CHANGE_TASK)
         bundle.putSerializable("change", task)
         findNavController().navigate(R.id.taskFragment, bundle)
+    }
+
+    companion object{
+        const val ID = "id"
+        const val ADD_TASK = "#paipai"
+        const val CHANGE_TASK = "#poipoi"
+
     }
 }

@@ -12,6 +12,18 @@ class TaskAdapter(private val click : LongClick, ):Adapter<TaskAdapter.TaskViewH
 
     private val list = arrayListOf<Task>()
 
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        holder.bind(list[position])
+
+        holder.itemView.setOnLongClickListener {
+            click.longCLick(list[position])
+            true
+        }
+        holder.itemView.setOnClickListener {
+            click.changeItem((list[position]))
+        }
+    }
+
     fun setTasks(tasks: List<Task>){
         list.clear()
         list.addAll(tasks)
@@ -25,22 +37,8 @@ class TaskAdapter(private val click : LongClick, ):Adapter<TaskAdapter.TaskViewH
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false ))
     }
-
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.bind(list[position])
-
-            holder.itemView.setOnLongClickListener {
-                click.longCLick(list[position])
-                true
-            }
-        holder.itemView.setOnClickListener {
-                click.changeItem((list[position]))
-        }
-    }
-
     override fun getItemCount(): Int  = list.size
     inner class TaskViewHolder(private val binding: ItemTaskBinding):ViewHolder(binding.root) {
-
         fun bind(task: Task) = with(binding) {
             tvTitle.text = task.title
             tvDesk.text = task.desk

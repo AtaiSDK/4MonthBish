@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.a4monthbish.R
 import com.example.a4monthbish.databinding.FragmentTaskBinding
 import com.example.a4monthbish.model.Task
 import com.example.a4monthbish.ui.App
@@ -43,6 +45,7 @@ class TaskFragment : Fragment() {
             val title = binding.etTitle.text.toString()
             val desk = binding.etDesc.text.toString()
             App.db.taskDao().insert(Task(null, title, desk))
+            findNavController().navigate(R.id.navigation_home)
         }
 
     }
@@ -57,6 +60,7 @@ class TaskFragment : Fragment() {
             val title = binding.etTitle.text.toString()
             val desk = binding.etDesc.text.toString()
             App.db.taskDao().update(Task(id, title, desk))
+            findNavController().navigate(R.id.navigation_home)
         }
     }
 }

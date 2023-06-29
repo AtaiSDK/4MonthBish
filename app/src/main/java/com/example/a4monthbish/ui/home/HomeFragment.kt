@@ -38,7 +38,7 @@ class HomeFragment : Fragment(),
         val bundle = Bundle()
         bundle.putString(ID, ADD_TASK)
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.taskFragment)
+            findNavController().navigate(R.id.taskFragment,bundle)
         }
         binding.recyclerView.adapter = adapter
     }

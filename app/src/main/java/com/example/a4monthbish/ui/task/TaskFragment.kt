@@ -49,12 +49,9 @@ class TaskFragment : Fragment() {
         }
 
     }
-
     private fun changeTask(task: Task) {
-
         binding.etTitle.setText(task.title)
         binding.etDesc.setText(task.desk)
-
         binding.btnSave.setOnClickListener {
             val id = task.id
             val title = binding.etTitle.text.toString()

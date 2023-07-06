@@ -6,25 +6,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.auth.phone.PhoneFragment">
 
-    <EditText
-        android:id="@+id/phone"
+    <com.google.android.material.textfield.TextInputLayout
+        app:prefixText="+996"
+        android:id="@+id/til_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Введите номер телефона"
         android:inputType="phone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="16dp"
-        />
-    
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите номер телефона"
+            android:inputType="phone"
+
+            android:layout_marginHorizontal="16dp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btn_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Отправить"
-        app:layout_constraintTop_toBottomOf="@id/phone"
+        app:layout_constraintTop_toBottomOf="@id/til_phone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"

@@ -50,8 +50,9 @@ class PhoneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnSend.setOnClickListener {
+            val phone = "${binding.tilPhone.prefixText}${binding.phone.text.toString()}"
             val options = PhoneAuthOptions.newBuilder(auth)
-                .setPhoneNumber(binding.phone.text.toString())
+                .setPhoneNumber(phone)
                 .setTimeout(60L, TimeUnit.SECONDS)
                 .setActivity(requireActivity())
                 .setCallbacks(callbacks)

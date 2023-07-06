@@ -55,6 +55,8 @@ dependencies {
     //Circle
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
 
     //Lottie
     def lottieVersion = "3.4.0"

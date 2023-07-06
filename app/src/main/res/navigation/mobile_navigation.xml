@@ -5,6 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <include
+        android:id="@+id/auth_navigation"
+        app:graph = "@navigation/auth_navigation"
+        />
+
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.a4monthbish.ui.home.HomeFragment"
@@ -42,4 +47,18 @@
         android:name="com.example.a4monthbish.MainActivity"
         android:label="MainActivity" />
 
+    <action android:id="@+id/action_to_auth"
+        app:destination="@+id/auth_navigation"
+        app:popUpToInclusive="false"
+        app:popUpTo="@id/mobile_navigation"/>
+
+    <action android:id="@+id/action_to_mobile_navigation"
+        app:destination="@+id/mobile_navigation"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/mobile_navigation"/>
+
+    <action android:id="@+id/action_to_onBoard"
+        app:destination="@+id/onBoardFragment"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/mobile_navigation"/>
 </navigation>

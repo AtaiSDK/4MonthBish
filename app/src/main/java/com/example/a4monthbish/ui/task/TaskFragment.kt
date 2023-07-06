@@ -33,8 +33,10 @@ class TaskFragment : Fragment() {
                     saveTask()
                 }
                 CHANGE_TASK -> {
-                    val task = arguments?.getSerializable(CHANGE_TASK)
-                    changeTask(task as Task)
+                    val task = arguments?.getSerializable(CHANGE_TASK) as? Task
+                    if (task != null) {
+                        changeTask(task)
+                    }
                 }
             }
         }

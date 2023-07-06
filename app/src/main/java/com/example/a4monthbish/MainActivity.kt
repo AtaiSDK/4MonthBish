@@ -15,6 +15,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.a4monthbish.data.local.Pref
 import com.example.a4monthbish.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import me.relex.circleindicator.CircleIndicator
 import me.relex.circleindicator.CircleIndicator3
 
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        FirebaseApp.initializeApp(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -35,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        if(!pref.isUserSeen())
-            navController.navigate(R.id.onBoardFragment)
+        if(FirebaseAuth.getInstance().currentUser == null)
+            navController.navigate(R.id.auth_navigation)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -50,8 +53,9 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        val fragmentsWithoutBottomNav = listOf(R.id.onBoardFragment,R.id.acceptFragment, R.id.phoneFragment )
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id == R.id.onBoardFragment) {
+            if (fragmentsWithoutBottomNav.contains(destination.id)) {
                 navView.isVisible = false
                 supportActionBar?.hide()
             } else {
